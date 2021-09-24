@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- CSS only -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		td: {margin-left: 5px, border-style: solid}
+	</style>
+</head>
+
+<body>
+	<button onclick="generateCharacter()">Generate Character</button>
+                <table style="border-style: solid">
+                    <thead>
+                        <tr>
+                            <td>Anime</td>
+                            <td>Character</td>
+							<td>Quote</td>
+                        </tr>
+                    </thead>
+                    <tbody id="anime-tbody"></tbody>
+                </table>
+    <script type="text/javascript">
+	async function getCharacter() {
+		let response = await
+		fetch("https://animechan.vercel.app/api/random")
+		let data = await response.json()
+		return data;
+	}
+		
+        function generateCharacter() {
+			getCharacter().then((data)=> {
+						var body = document.querySelector("#anime-tbody");
+                        var tr = document.createElement("TR");
+                        var tdAnime = document.createElement("TD");
+                        var tdCharacter = document.createElement("TD");
+						var tdQuote = document.createElement("TD");
+
+						tdAnime.innerHTML = data.anime;
+                        tr.appendChild(tdAnime);
+						
+						tdCharacter.innerHTML = data.character;
+                        tr.appendChild(tdCharacter);
+						
+						tdQuote.innerHTML = data.quote;
+						tr.appendChild(tdQuote);
+						document.createElement("HR");
+                        body.appendChild(tr);
+				})}
+    </script>
+</body>
+
+</html>
